@@ -86,8 +86,8 @@ class CommissionsCog(commands.Cog):
             timestamp = user_record.get("timestamp")
             days = user_record.get("days")
             current_time = time()
-            expire_time = timestamp + (days * 15)
-            days_left = round((expire_time - current_time) / 15)
+            expire_time = timestamp + (days * 86400)
+            days_left = round((expire_time - current_time) / 86400)
             embed.add_field(
                 name=user_record.get("commission"),
                 value="{} day(s) left".format(days_left),
@@ -96,7 +96,7 @@ class CommissionsCog(commands.Cog):
 
         await ctx.send(embed=embed)
 
-    @tasks.loop(minutes=1 / 15)
+    @tasks.loop(minutes=5)
     async def update_commissions(self):
         await update_all_commissions(self.bot)
 

@@ -8,6 +8,7 @@ from time import time
 from Utilities.Database import commissionsTable
 from Utilities.ConfigurationsHelper import get_configuration
 
+
 def update_commission(guild_id, user_id, name, property, value):
     query = Query()
     return len(
@@ -88,11 +89,12 @@ async def update_all_commissions(bot):
         )
         notice_days_interval = get_configuration(guild_id, "NOTICE_DAYS_INTERVAL")
 
-        expire_time = timestamp + (days * 15)
-        days_left = round((expire_time - current_time) / 15)
-        final_warning_time = expire_time - (final_notice_days_before * 15)
+        expire_time = timestamp + (days * 86400)
+        days_left = round((expire_time - current_time) / 86400)
+        final_warning_time = expire_time - (final_notice_days_before * 86400)
         get_interval = (
-            lambda time: floor((expire_time - time) / (notice_days_interval * 15)) + 1
+            lambda time: floor((expire_time - time) / (notice_days_interval * 86400))
+            + 1
         )
         current_interval = get_interval(current_time)
         maximum_interval = get_interval(timestamp)
