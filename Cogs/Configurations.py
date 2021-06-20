@@ -19,18 +19,18 @@ class ConfigurationsCog(commands.Cog):
     async def setconfiguration(self, ctx, configuration: str, *, value):
         if not configuration in valid_configurations:
             return await ctx.send(
-                f"Configuration is invalid (case sensitive), please try again"
+                "Configuration is invalid (case sensitive), please try again"
             )
 
         value = await cast_configuration_value(ctx, configuration, value)
         if not value:
-            return await ctx.send(f"Value is invalid, please try again")
+            return await ctx.send("Value is invalid, please try again")
 
         response = set_configuration(ctx.author.guild.id, configuration, value)
         if not response:
-            await ctx.send(f"There was a problem")
+            await ctx.send("There was a problem")
 
-        await ctx.send(f"Successfully updated configuration")
+        await ctx.send("Successfully updated configuration")
 
     @commands.command(
         aliases=["getconfig"],
@@ -42,7 +42,7 @@ class ConfigurationsCog(commands.Cog):
 
             if not value:
                 await ctx.send(
-                    f"Configuration is invalid (case sensitive), please try again"
+                    "Configuration is invalid (case sensitive), please try again"
                 )
 
             value = prettify_configuration(ctx, configuration, value)
@@ -75,7 +75,7 @@ class ConfigurationsCog(commands.Cog):
                     )
                 else:
                     await ctx.send(
-                        f"Configuration is invalid (case sensitive), please try again"
+                        "Configuration is invalid (case sensitive), please try again"
                     )
 
             await ctx.send(embed=responseEmbed)

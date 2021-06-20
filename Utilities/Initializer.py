@@ -70,5 +70,5 @@ def initialize(bot):
             set_configuration(
                 guild_id,
                 "INVALID_PERMISSION",
-                "You do not have permission to use that command!"
+                "You do not have permission to use that command!",
             )

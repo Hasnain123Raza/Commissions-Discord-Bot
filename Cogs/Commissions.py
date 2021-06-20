@@ -39,9 +39,9 @@ class CommissionsCog(commands.Cog):
         count = response.get("payload")
 
         message = (
-            f"Successfully cancelled {count} commission(s)"
+            "Successfully cancelled {} commission(s)".format(count)
             if name == None
-            else f"Successfully cancelled '{name}' commission"
+            else "Successfully cancelled '{}' commission".format(name)
         )
         await ctx.send(message)
 
@@ -55,9 +55,9 @@ class CommissionsCog(commands.Cog):
         count = response.get("payload")
 
         message = (
-            f"Successfully completed {count} commission(s)"
+            "Successfully completed {} commission(s)".format(count)
             if name == None
-            else f"Successfully completed '{name}' commission"
+            else "Successfully completed '{}' commission".format(name)
         )
         await ctx.send(message)
 
@@ -73,9 +73,11 @@ class CommissionsCog(commands.Cog):
 
         embed = Embed(
             title="Commissions",
-            description=f"{user.display_name} has {total_commissions} total active commission(s)."
+            description="{.display_name} has {} total active commission(s).".format(
+                user, total_commissions
+            )
             if total_commissions > 0
-            else f"{user.display_name} has no active commissions.",
+            else "{.display_name} has no active commissions.".format(user),
             colour=Color.purple(),
         )
         embed.set_author(name=user.display_name, icon_url=user.avatar_url)
@@ -88,7 +90,7 @@ class CommissionsCog(commands.Cog):
             days_left = round((expire_time - current_time) / 15)
             embed.add_field(
                 name=user_record.get("commission"),
-                value=f"{days_left} day(s) left",
+                value="{} day(s) left".format(days_left),
                 inline=True,
             )
 
