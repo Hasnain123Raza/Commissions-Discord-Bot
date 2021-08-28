@@ -16,7 +16,7 @@ def update_commission(guild_id, user_id, name, property, value):
             set(property, value),
             (query.guildId == guild_id)
             & (query.userId == user_id)
-            & (query.commission.matches(name, flags=re.IGNORECASE)),
+            & (query.commission.matches(re.re.escape(name), flags=re.IGNORECASE)),
         )
     )
 
@@ -26,7 +26,7 @@ def add_commission(guild_id, user_id, name, days):
     user_record = commissionsTable.search(
         (query.guildId == guild_id)
         & (query.userId == user_id)
-        & (query.commission.matches(name, flags=re.IGNORECASE))
+        & (query.commission.matches(re.escape(name), flags=re.IGNORECASE))
     )
     if len(user_record) > 0:
         return {"success": False, "message": "This commission is already assigned"}
